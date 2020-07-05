@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
-export default class App extends Component {
+export default class Login extends Component {
   constructor(){
     super();
     this.state = {
@@ -24,15 +24,7 @@ export default class App extends Component {
   handlechange = key => val => {
     this.setState({[key]: val});
   }
-
-  componentDidMount(){
-    AsyncStorage.getItem('userPhone').then(val =>{
-      if(val){
-        this.setState({phone:val})
-      }
-    })
-  }
-
+  
   submit = () => {
     if(this.state.name.length < 3){
       alert('minimal 3 huruf');
