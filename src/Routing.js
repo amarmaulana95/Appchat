@@ -5,8 +5,13 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Login from './screen/Login';
 import Home from './screen/Home';
 import AuthLoading from './screen/AuthLoading';
+import Chat from './screen/Chat';
 
-const AppStack = createStackNavigator({ Home: Home });
+const AppStack = createStackNavigator(
+    { 
+        Home: Home, 
+        Chat:Chat 
+    });
 const AuthStack = createStackNavigator({ Login: Login });
 
 export default createAppContainer(
@@ -17,7 +22,7 @@ export default createAppContainer(
       Auth: AuthStack,
     },
     {
-      initialRouteName: 'Auth',
+      initialRouteName: 'AuthLoading',
     }
   )
 );

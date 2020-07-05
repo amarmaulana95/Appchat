@@ -11,9 +11,13 @@ import {
   StatusBar,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import User from '../User';
+import firebase from 'firebase';
 
 export default class Login extends Component {
-  
+  static navigationOptions = {
+    header: null
+}
   constructor(){
     super();
     this.state = {
@@ -26,13 +30,16 @@ export default class Login extends Component {
     this.setState({[key]: val});
   }
   
-  submit = () => {
+  submit = async () => {
     if(this.state.name.length < 3){
       alert('minimal 3 huruf');
     }else if(this.state.phone.length < 10){
       alert('minimal 11 angka');
     }else{
-     AsyncStorage.setItem('userPhone',this.state.phone);
+     await AsyncStorage.setItem('userPhone',this.state.phone);
+     User.phone = this.state.phone;
+     firebase.database().ref('users/'+ User.phone).set({name: this.state.name });
+     this.props.navigation.navigate('App');
     }
   }
 
