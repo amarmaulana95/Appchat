@@ -21,40 +21,48 @@ export default class Home extends Component {
     constructor(){
         super();
         this.state = {
-        user: []
+        users: []
         }
     }
 
-    componentDidMount(){
-        let dbRef = firebase.database().ref('users');
+    componentDidMount = async () => {
+        let dbRef = await firebase.database().ref('users');
         dbRef.on('child_added', (val)=>{
             let data = val.val();
+            console.log(JSON.stringify(data));
             data.phone = val.key;
-            this.setState((prevState)=>{
-                return {
-                    users: [...prevState.user, data]
-                }
-            })
+            if(data.phone===User.phone){
+                User.name == data.name
+            }else{
+                this.setState((prevState)=>{
+                    return {
+                        users: [...prevState.users, data]
+                    }
+                })
+            }
+          
         })
     }
 
 
-    _signOutAsync = async () => {
-        await AsyncStorage.clear();
+    _signOutAsync = () => {
+        AsyncStorage.clear();
         this.props.navigation.navigate('Auth');
     };
 
     renderRow = ({item}) =>{
-        return (
+        return (           
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Chat', item)}
             style={{padding:10, borderBottomColor:'#000', borderBottomWidth:1}}>
                 <Text style={{fontSize:20}}>{item.name}</Text>
             </TouchableOpacity>
+          
         )
     }
 
     render() {
         return (
+            
         <SafeAreaView style={styles.container}>
             <FlatList
                 data={this.state.users}
@@ -62,7 +70,7 @@ export default class Home extends Component {
                 keyExtractor={(item)=> item.phone}
             />
             <TouchableOpacity onPress={this._signOutAsync}>
-               <Text>logout</Text> 
+                <Text style={{fontSize:20}}>{User.phone}</Text>
             </TouchableOpacity>
       </SafeAreaView> 
         

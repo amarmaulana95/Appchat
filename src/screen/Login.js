@@ -16,7 +16,7 @@ import firebase from 'firebase';
 
 export default class Login extends Component {
   static navigationOptions = {
-    header: null
+    headerShown: false,
 }
   constructor(){
     super();
@@ -33,8 +33,8 @@ export default class Login extends Component {
   submit = async () => {
     if(this.state.name.length < 3){
       alert('minimal 3 huruf');
-    }else if(this.state.phone.length < 10){
-      alert('minimal 11 angka');
+    }else if(this.state.phone.length < 4){
+      alert('minimal 4 angka');
     }else{
      await AsyncStorage.setItem('userPhone',this.state.phone);
      User.phone = this.state.phone;
