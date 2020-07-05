@@ -19,7 +19,7 @@ export default class Chat extends React.Component {
                 name: props.navigation.getParam('name'),
                 phone: props.navigation.getParam('phone'),
             },   
-        textMessage:'',
+        pesan:'',
         messageList:[]
         }
     }
@@ -35,25 +35,35 @@ export default class Chat extends React.Component {
         })
     }
 
-    handlechange = key => val => {
+    timeconvert = () => {
+        let a = new Date();
+        let b = new Date();
+        let result = (a.getHours() < 10 ? '0' : '') + a.getHours() + ':';
+        result +=(a.getMinutes() < 10 ? '0' : '' ) + a.getMinutes();
+        if(b.getDay() !== a.getDay()){
+            result = a.getDay() +' '+ a.getMonth() + ' ' + result;
+        }
+        return result;
+    }
+
+    InputPesan = key => val => {
         this.setState({ [key]: val});
     }
 
 
     submitChat =  () =>{
-        if(this.state.textMessage.length > 0){
+        if(this.state.pesan.length > 0){
             let msgId = firebase.database().ref('messages').child(User.phone).child(this.state.person.phone).push().key;
             let updates = {};
             let message = {
-                message: this.state.textMessage,
-                time:firebase.database.ServerValue.TIMESTAMP,
+                message: this.state.pesan,
+                waktu:firebase.database.ServerValue.TIMESTAMP,
                 from: User.phone
             }
-            console.log(msgId);
             updates['messages/'+User.phone+'/'+this.state.person.phone+'/'+msgId] = message;
             updates['messages/'+this.state.person.phone+'/'+User.phone+'/'+msgId] = message;
             firebase.database().ref().update(updates);
-            this.setState({textMessage:''})
+            this.setState({pesan:''})
 
         }
     }
@@ -62,15 +72,15 @@ export default class Chat extends React.Component {
         return (
             <View style={{
                 flexDirection:'row', width:'60%', alignSelf: item.from===User.phone ? 'flex-end' : 'flex-start',
-                backgroundColor: item.from===User.phone ? '#eee' : '#000',
+                backgroundColor: item.from===User.phone ? '#c0392b' : '#2c3e50',
                 borderRadius:5,
                 marginBottom:10,
             }}>
-            <Text style={{color:'#fff', padding:7, fontSize:16}}>
+            <Text style={{color:'#fff', padding:10, fontSize:16}}>
                 {item.message}
             </Text>
-            <Text style={{color:'#999', padding:3, fontSize:12}}>
-                {item.time}
+            <Text style={{color:'#fff', padding:5, fontSize:12}}>
+                {this.timeconvert(item.waktu)}
             </Text>
             </View>
         )
@@ -88,9 +98,9 @@ export default class Chat extends React.Component {
                 />
                 <View style={{ flexDirection :'row', alignItems:'center'}}>
                     <TextInput style={styles.input}
-                    value={this.state.textMessage}
+                    value={this.state.pesan}
                     placeholder="pesan.."
-                    onChangeText={this.handlechange('textMessage')}
+                    onChangeText={this.InputPesan('pesan')}
                     />
                     <TouchableOpacity onPress={this.submitChat}>
                         <Text>Send</Text>
