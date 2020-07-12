@@ -96,22 +96,8 @@ const styles = StyleSheet.create({
     marginRight: 19
   },
   image: {
-    marginTop:40,
+    marginTop:50,
     width: "100%",
-    // backgroundColor:'#000',
     position:"absolute"
   },
-  // imageStack: {
-  //   width: "100%",
-  //   marginTop: 58,
-  //   marginLeft: -250
-  // },
-  // image: {
-  //   marginTop:80,
-  //   width: "100%",
-  //   position: "absolute",
-  //   backgroundColor:'#000',
-  // },
 });
-
-// export default App;

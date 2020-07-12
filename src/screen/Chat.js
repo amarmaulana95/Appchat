@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
-import {  StyleSheet, SafeAreaView, FlatList, View, StatusBar, Dimensions,Text, Keyboard,KeyboardAvoidingView,Animated} from 'react-native';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import {  StyleSheet, 
+  SafeAreaView, 
+  FlatList, 
+  View, 
+  StatusBar, 
+  Dimensions,
+  Text, 
+  Keyboard,
+  TouchableOpacity,
+  TextInput,
+  KeyboardAvoidingView,
+  Animated} from 'react-native';
 import firebase from 'firebase';
 import User from '../User';
 const isIOS = Platform.OS === 'ios';
@@ -21,7 +31,8 @@ export default class Chat extends React.Component {
                 phone: props.navigation.getParam('phone'),
             },   
         pesan:'',
-        messageList:[]
+        messageList:[],
+        dbRef: firebase.database(),
         },
         this.keyboardHeight = new Animated.Value(0);
         this.bottomPadding = new Animated.Value(80);
@@ -48,7 +59,7 @@ export default class Chat extends React.Component {
 
     
   componentWillUnmount() {
-    // this.state.dbRef.ref('messages').off();
+    this.state.dbRef.ref('messages').off();
     this.keyboardShowListener.remove();
     this.keyboardHideListener.remove();
   }
@@ -134,6 +145,7 @@ export default class Chat extends React.Component {
     render() {
         let {height, weight} = Dimensions.get('window');
         return (
+          <>
             <SafeAreaView style={styles.container}>
                 <KeyboardAvoidingView style={{flex: 1}}>
                   <FlatList
@@ -150,11 +162,11 @@ export default class Chat extends React.Component {
                     <Animated.View style={{height: 40}} />
                     }
                 />
-                <Animated.View>
                 <View style={{ flexDirection :'row', alignItems:'center'}}>
+      
                     <TextInput
                         placeholder="Type message ..."
-                        value={this.state.textMessage}
+                        value={this.state.pesan}
                         style={[
                         styles.input,
                         styles.boxStyleRight,
@@ -180,9 +192,9 @@ export default class Chat extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                </Animated.View>
                 </KeyboardAvoidingView>
             </SafeAreaView>
+            </>
         );
     }
 }
