@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {  StyleSheet,  View, StatusBar } from 'react-native';
 import AppContainer from './Routing';
 
-StatusBar.setBackgroundColor("#ee5253");
+StatusBar.setBackgroundColor("#16a085");
 
 type Props = {};
 export default class App extends Component<Props> {

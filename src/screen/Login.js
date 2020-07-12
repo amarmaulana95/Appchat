@@ -16,7 +16,7 @@ import firebase from 'firebase';
 
 export default class Login extends Component {
   static navigationOptions = {
-    headerShown: false,
+            headerShown: false,
 }
   constructor(){
     super();
@@ -34,7 +34,7 @@ export default class Login extends Component {
     if(this.state.name.length < 3){
       alert('minimal 3 huruf');
     }else if(this.state.phone.length < 4){
-      alert('minimal 4 angka');
+      alert('minimal 11 angka');
     }else{
      await AsyncStorage.setItem('userPhone',this.state.phone);
      User.phone = this.state.phone;
@@ -47,19 +47,19 @@ export default class Login extends Component {
     return (
       <View style={styles.container}>
           <TextInput
-            placeholder="youre name"
+            placeholder="Nama Kamu"
             style={styles.input}
             value={this.state.name}
             onChangeText={this.handlechange('name')}
           />
           <TextInput
-            placeholder="number phone"
+            placeholder="Telepon"
             style={styles.input}
             value={this.state.phone}
             onChangeText={this.handlechange('phone')}
           />
         <TouchableOpacity onPress={this.submit}>
-          <Text>Masuk</Text>
+          <Text style={{fontSize:20}}>Masuk</Text>
         </TouchableOpacity>
       </View>
       
@@ -73,11 +73,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#fff',
   },
   input: {
     padding:10,
-    borderWidth:1,
+    borderWidth:2,
+    borderColor:'#16a085',
     width:'90%',
     marginBottom:10
   },

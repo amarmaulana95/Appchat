@@ -70,7 +70,7 @@ export default class Home extends Component {
                 keyExtractor={(item)=> item.phone}
             />
             <TouchableOpacity onPress={this._signOutAsync}>
-                <Text style={{fontSize:20}}>{User.phone}</Text>
+                <Text style={{fontSize:20}}>LOGOUT</Text>
             </TouchableOpacity>
       </SafeAreaView> 
         
