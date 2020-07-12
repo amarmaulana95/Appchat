@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  StyleSheet, SafeAreaView, FlatList, View, StatusBar, Dimensions,Text, Keyboard,Animated} from 'react-native';
+import {  StyleSheet, SafeAreaView, FlatList, View, StatusBar, Dimensions,Text, Keyboard,KeyboardAvoidingView,Animated} from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import firebase from 'firebase';
 import User from '../User';
@@ -105,19 +105,28 @@ export default class Chat extends React.Component {
 
     renderRow = ({item}) => {
         return (
-            <View style={{
-                flexDirection:'row', width:'60%', alignSelf: item.from===User.phone ? 'flex-end' : 'flex-start',
-                backgroundColor: item.from===User.phone ? '#c0392b' : '#2c3e50',
-                borderRadius:5,
-                marginBottom:10,
-            }}>
-            <Text style={{color:'#fff', padding:10, fontSize:16}}>
-                {item.message}
-            </Text>
-            <Text style={{color:'#fff', padding:5, fontSize:12}}>
-                {this.timeconvert(item.waktu)}
-            </Text>
-            </View>
+          <View
+          style={[
+            styles.boxChat,
+            styles.horizontal,
+            styles.vertical,
+            styles.sm,
+            styles.marginvertical,
+            styles.marginhorizontal,
+            item.from === User.phone ? styles.boxStyleLeft : styles.boxStyleRight,
+            item.from === User.phone ? styles.gray : styles.black,
+            item.from === User.phone ? styles.boxRight : styles.boxLeft,
+          ]}>
+          <Text
+            style={[
+              item.from === User.phone ? styles.black : styles.gray,
+              item.from === User.phone ? styles.textRight : styles.textLeft,
+            ]}>
+            {item.message}
+            {'\n'}
+            {this.timeconvert(item.waktu)}
+          </Text>
+          </View>
         )
     }
 
@@ -126,11 +135,7 @@ export default class Chat extends React.Component {
         let {height, weight} = Dimensions.get('window');
         return (
             <SafeAreaView style={styles.container}>
-                {/* <FlatList style={{padding:10, height: height * 0.8}}
-                    data={this.state.messageList}
-                    renderItem ={this.renderRow}
-                    keyExtractor={(item,index)=>index.toString()}
-                /> */}
+                <KeyboardAvoidingView style={{flex: 1}}>
                   <FlatList
                     style={{padding:10, height: height * 0.8}}
                     onContentSizeChange={() =>
@@ -145,6 +150,7 @@ export default class Chat extends React.Component {
                     <Animated.View style={{height: 40}} />
                     }
                 />
+                <Animated.View>
                 <View style={{ flexDirection :'row', alignItems:'center'}}>
                     <TextInput
                         placeholder="Type message ..."
@@ -174,6 +180,8 @@ export default class Chat extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
+                </Animated.View>
+                </KeyboardAvoidingView>
             </SafeAreaView>
         );
     }
@@ -194,6 +202,15 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
     borderBottomRightRadius: 5,
     borderBottomLeftRadius: 15,
+  },
+  contentBottom: {
+    height: 75,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 2,
+    backgroundColor: '#f2f2f2',
   },
   bg:{
     backgroundColor: '#5a52a5'
@@ -224,4 +241,30 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15,
     zIndex: 100,
   },
+  boxChat: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    maxWidth: '60%',
+    alignSelf: 'flex-start',
+  },
+  white: {color: '#fff'},
+  gray: {color: 'gray'},
+  black: {color: 'black'},
+  textLeft: {textAlign: 'left'},
+  textRight: {textAlign: 'right'},
+  boxLeft: {alignSelf: 'flex-start'},
+  boxRight: {alignSelf: 'flex-end'},
+  vertical:{
+    paddingVertical: 10,
+  },
+  horizontal:{
+    paddingHorizontal: 20
+  },
+  marginhorizontal:{
+    marginHorizontal: 20
+  },
+  marginvertical:{
+    marginVertical: 5
+  },
+
 });
