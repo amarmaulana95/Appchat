@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {  StyleSheet,  View, StatusBar } from 'react-native';
+import { StyleSheet, View, StatusBar } from 'react-native';
 import AppContainer from './Routing';
 
-StatusBar.setBackgroundColor("#16a085");
+StatusBar.setBackgroundColor("#fff");
 
-type Props = {};
-export default class App extends Component<Props> {
+
+export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -16,7 +16,7 @@ export default class App extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-  container : {
+  container: {
     flex: 1,
   },
 
