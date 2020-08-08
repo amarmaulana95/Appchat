@@ -22,25 +22,19 @@ export default class Start extends Component {
   render() {
     return (
       <View style={styles.container}>
-
-        <View style={styles.loremIpsumColumn}>
-          <Text style={styles.textsatu}>SELAMAT DATANG DI MUBO CHAT..</Text>
-          <Text style={styles.textdua}>Jelajahi selagi bisa</Text>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Login')}
-            style={styles.btn}
-            underlayColor='#fff'>
-            <Text style={styles.loginText}>Mulai</Text>
-          </TouchableOpacity>
+        <View style={styles.imageContainer}>
+          <Image source={require('../assets/start.png')} style={styles.image} resizeMode="stretch" />
         </View>
-
-
-        {/* <View style={styles.imageStack}>
-          <Image
-            source={require("../assets/bo.png")}
-            resizeMode="contain"
-            style={styles.image} />
-        </View> */}
+        <Text style={styles.textTitle}>Wellcome back gaes</Text>
+        <Text style={styles.textBody}>Nikmati kemudahan dalam mencari teman . . .</Text>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Login')}
+          style={styles.btn}
+          underlayColor='#fff'>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Mulai</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -50,54 +44,44 @@ export default class Start extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#c0392b",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FCF6EE'
   },
-  textsatu: {
-    color: "#fff",
-    fontSize: 20,
-    top: 90,
-    textAlign: 'left',
-    fontWeight: 'bold',
-    borderRadius: 30,
-  },
-  textdua: {
-    color: "rgba(22,160,133,1)",
-    fontSize: 14,
-    top: 90,
-    textAlign: 'left',
-    fontWeight: 'bold',
-    borderRadius: 30,
-  },
-  btn: {
-    marginRight: 150,
-    marginLeft: 0,
-    marginTop: 150,
-    paddingTop: 15,
-    paddingBottom: 15,
-    backgroundColor: '#16A085',
-    borderRadius: 20,
-    borderWidth: 1,
-    shadowColor: "rgba(105,105,105,1)",
-    elevation: 20,
-    shadowOpacity: 20,
-    shadowRadius: 20,
-    borderColor: '#fff',
-    position: 'relative'
-  },
-  loginText: {
-    color: '#fff',
-    textAlign: 'center',
-    paddingLeft: 10,
-    paddingRight: 10
-  },
-  loremIpsumColumn: {
-    marginTop: 100,
-    marginLeft: 30,
-    marginRight: 19
+  imageContainer: {
+    width: '50%',
+    height: '35%',
+    marginVertical: '5%',
+    alignItems: 'center'
   },
   image: {
-    marginTop: 50,
-    width: "100%",
-    position: "absolute"
+    width: '100%',
+    height: '100%'
   },
+  textTitle: {
+    fontSize: 30,
+    fontFamily: 'HelveticaNeue-Bold'
+  },
+  textBody: {
+    width: '75%',
+    fontSize: 18,
+    fontFamily: 'HelveticaNeue',
+    marginVertical: '5%',
+    textAlign: 'center'
+  },
+  button: {
+    width: 320,
+    height: "auto",
+    padding: 15,
+    backgroundColor: "#c0392b",
+    alignContent: 'center',
+    justifyContent: 'center',
+    elevation: 5
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
+    fontWeight: "600",
+    fontSize: 15
+  }
 });
